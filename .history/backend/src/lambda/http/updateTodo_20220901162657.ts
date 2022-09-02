@@ -16,7 +16,7 @@ export const handler = middy(
     const jwtToken = getUserId(event)
     
    
-    const updated = await updateTodo(updatedTodo, todoId, jwtToken)
+    const updated = await updateTodo(updatedTodo, jwtToken, todoId)
     return {
       statusCode: 200,
       headers: {

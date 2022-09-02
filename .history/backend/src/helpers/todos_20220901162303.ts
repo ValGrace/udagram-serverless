@@ -26,18 +26,18 @@ export async function createTodo(CreateTodoRequest: CreateTodoRequest, jwtToken:
   })
 }
 
-export async function updateTodo(UpdateTodoRequest: UpdateTodoRequest, todoId:string, jwtToken: string): Promise<TodoUpdate> {
+export async function updateTodo(UpdateTodoRequest: UpdateTodoRequest, jwtToken: string, todoId:string): Promise<TodoUpdate> {
    
     return await todosAccess.updateTodo({
         
         name: UpdateTodoRequest.name,
         dueDate: UpdateTodoRequest.dueDate,
         done: UpdateTodoRequest.done
-    }, todoId, jwtToken)
+    }, jwtToken, todoId)
 }
 
-export async function createAttachmentPresignedUrl(todoId: string): Promise<string> {
-  return await attachmentUtils.createAttachmentPresignedUrl(todoId)
+export async function createAttachmentPresignedUrl(url: string): Promise<string> {
+  return await attachmentUtils.createAttachmentPresignedUrl(url)
 }
 
 export async function deleteTodo(todoId: string, userIdToken: string): Promise<string> {

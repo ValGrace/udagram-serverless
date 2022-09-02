@@ -17,7 +17,9 @@ export class AttachmentUtils {
        
         const url = this.s3Client.getSignedUrl('putObject', {
             Bucket: this.bucket,
-            Key: todoId,
+            Key: {
+             id: todoId
+            },
             Expires: 1000 
         })
         logger.info(url)

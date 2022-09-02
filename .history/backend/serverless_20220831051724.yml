@@ -62,6 +62,9 @@ custom:
         schema: ${file(models/update-todo-model.json)}       
 
 
+       
+
+
 functions:
 
   Auth:
@@ -78,13 +81,11 @@ functions:
           cors: true
           authorizer: 
             name: Auth
-            resultTtlInSeconds: 0
-    iamRoleStatementsInherit: true      
     iamRoleStatements:
       - Effect: Allow
         Action: 
           - dynamodb:Query
-        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE}/index/${self:provider.environment.TODOS_CREATED_AT_INDEX} 
+        Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TODOS_TABLE} 
           
 
   # TODO: Configure this function - 
@@ -98,16 +99,14 @@ functions:
           method: post
           path: todos
           cors: true
-          authorizer: 
+          authorizer:
             name: Auth
-            resultTtlInSeconds: 0
           documentation:
             summary: "Create new todo"
             description: "Create a new todo item" 
             requestModels:
               "application/json": CreateTodoRequest
-          reqValidatorName: RequestBodyValidator  
-    iamRoleStatementsInherit: true       
+          reqValidatorName: RequestBodyValidator   
     iamRoleStatements:
       - Effect: Allow
         Action: 
@@ -126,7 +125,6 @@ functions:
           cors: true
           authorizer: 
             name: Auth 
-            resultTtlInSeconds: 0
           documentation:
             summary: "Update an existing todo" 
             description: "Updating a todo"
@@ -149,9 +147,7 @@ functions:
           path: todos/{todoId}
           cors: true
           authorizer: 
-            name: Auth 
-            resultTtlInSeconds: 0
-    iamRoleStatementsInherit: true         
+            name: Auth    
     iamRoleStatements:
       - Effect: Allow
         Action: 
@@ -167,10 +163,8 @@ functions:
           path: todos/{todoId}/attachment
           cors: true
           authorizer: 
-            name: Auth
-            resultTtlInSeconds: 0
-
-    iamRoleStatementsInherit: true        
+            name: Auth 
+            
     iamRoleStatements: 
       - Effect: Allow
         Action: 

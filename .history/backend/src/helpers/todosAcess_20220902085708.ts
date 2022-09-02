@@ -64,7 +64,7 @@ export class TodosAccess {
                     ":due": todoUpdate['dueDate'],
                     ":todoDone": todoUpdate['done'] 
                 },
-                ReturnValues: "ALL_NEW" 
+                ReturnValues: "ALL NEW" 
             }).promise()
             logger.info('Successfully updated todo item', updatedItems)
             const updatedItem = updatedItems.Attributes

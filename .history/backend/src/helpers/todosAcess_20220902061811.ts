@@ -45,7 +45,7 @@ export class TodosAccess {
         return todoitems as TodoItem[]
     }   
 
-    async updateTodo(todoUpdate: TodoUpdate, todoId: string,  userId: string): Promise<TodoUpdate> {
+    async updateTodo(todoUpdate: TodoUpdate, userId: string, todoId: string): Promise<TodoUpdate> {
            logger.info('Updating a todo item')
            const updatedItems = await this.docClient.update({
                 TableName: this.todosTable,
@@ -64,11 +64,10 @@ export class TodosAccess {
                     ":due": todoUpdate['dueDate'],
                     ":todoDone": todoUpdate['done'] 
                 },
-                ReturnValues: "ALL_NEW" 
+                ReturnValues: "ALL NEW" 
             }).promise()
             logger.info('Successfully updated todo item', updatedItems)
-            const updatedItem = updatedItems.Attributes
-            return updatedItem  as TodoUpdate
+            return updatedItems.Attributes as TodoUpdate
         }
       
         
